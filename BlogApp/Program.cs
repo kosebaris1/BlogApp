@@ -1,3 +1,4 @@
+using BlogApp.Data.AbstractBase;
 using BlogApp.Data.Concreate.EfCore;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -16,7 +17,7 @@ namespace BlogApp
             builder.Services.AddDbContext<BlogContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-
+            builder.Services.AddScoped<IPostRepository, EfPostRepository>();    
 
             var app = builder.Build();
 

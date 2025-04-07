@@ -8,6 +8,8 @@
 
         public string? Content { get; set; }
 
+        public string? Image { get; set; }
+
         public DateTime publishedOn { get; set; }
 
         public bool IsActive { get; set; }
