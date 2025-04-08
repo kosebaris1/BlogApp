@@ -1,46 +1,51 @@
 ﻿@model PostsViewModel
 
-<div class="row">
-    <!-- Ana İçerik -->
-    <div class="col-lg-8">
-        <div class="bg-white p-4 rounded shadow-sm">
-            <h1 class="h4 mb-4 border-bottom pb-2">Popüler Gönderiler</h1>
+<div class="bg-light py-5">
+    <div class="container">
+        <div class="row">
+            <!-- Ana İçerik -->
+            <div class="col-lg-8">
+                <div class="bg-white p-4 rounded shadow-sm">
+                    <h1 class="h4 mb-4 border-bottom pb-2">Popüler Gönderiler</h1>
 
-            @foreach (var post in Model.Posts)
-            {
-                <div class="card mb-4 border-0 shadow-sm">
-                    <div class="row g-0">
-                        <div class="col-md-4">
-                            <img src="@Url.Content("~/img/" + post.Image)" class="img-fluid rounded-start" alt="@post.Title">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">
-                                    <a href="#" class="text-decoration-none text-dark fw-bold">@post.Title</a>
-                                </h5>
-                                <p class="card-text text-muted">@post.Content</p>
-                                <div>
-                                    <span class="badge bg-danger-subtle text-danger fw-semibold">Web Development</span>
+                    @foreach (var post in Model.Posts)
+                    {
+                        <div class="card mb-4 border-0 shadow-sm">
+                            <div class="row g-0">
+                                <div class="col-md-4">
+                                    <img src="@Url.Content("~/img/" + post.Image)" class="img-fluid rounded-start" alt="@post.Title">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <a href="#" class="text-decoration-none text-dark fw-bold">@post.Title</a>
+                                        </h5>
+                                        <p class="card-text text-muted">@post.Content</p>
+                                        <div>
+                                            <span class="badge bg-danger-subtle text-danger fw-semibold">Web Development</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    }
+
+                    <!-- Sayfalandırma -->
+                    <nav>
+                        <ul class="pagination justify-content-center mt-4">
+                            <li class="page-item"><a href="#" class="page-link">1</a></li>
+                            <li class="page-item"><a href="#" class="page-link">2</a></li>
+                            <li class="page-item"><a href="#" class="page-link">3</a></li>
+                        </ul>
+                    </nav>
                 </div>
-            }
+            </div>
 
-            <!-- Sayfalandırma -->
-            <nav>
-                <ul class="pagination justify-content-center mt-4">
-                    <li class="page-item"><a href="#" class="page-link">1</a></li>
-                    <li class="page-item"><a href="#" class="page-link">2</a></li>
-                    <li class="page-item"><a href="#" class="page-link">3</a></li>
-                </ul>
-            </nav>
+            <!-- Yan Panel -->
+            <div class="col-lg-4">
+                <vc:tags-menu></vc:tags-menu>
+                <vc:new-posts></vc:new-posts>
+            </div>
         </div>
-    </div>
-
-    <!-- Yan Panel -->
-    <div class="col-lg-4">
-        <vc:tags-menu></vc:tags-menu>
     </div>
 </div>
