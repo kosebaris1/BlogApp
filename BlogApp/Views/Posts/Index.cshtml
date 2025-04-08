@@ -41,22 +41,6 @@
 
     <!-- Yan Panel -->
     <div class="col-lg-4">
-        <div class="card shadow-sm">
-            <div class="card-header bg-white">
-                <h5 class="card-title mb-0">Etiketler</h5>
-            </div>
-            <div class="card-body">
-                <ul class="list-inline d-flex flex-wrap gap-2">
-                    @foreach (var tag in Model.Tags)
-                    {
-                        <li class="list-inline-item">
-                            <a href="#" class="btn btn-outline-secondary btn-sm rounded-pill px-3">
-                                @tag.Text
-                            </a>
-                        </li>
-                    }
-                </ul>
-            </div>
-        </div>
+        <vc:tags-menu></vc:tags-menu>
     </div>
 </div>
