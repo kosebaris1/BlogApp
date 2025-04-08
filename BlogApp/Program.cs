@@ -17,9 +17,12 @@ namespace BlogApp
             builder.Services.AddDbContext<BlogContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-            builder.Services.AddScoped<IPostRepository, EfPostRepository>();    
+            builder.Services.AddScoped<IPostRepository, EfPostRepository>();
+            builder.Services.AddScoped<ITagRepository, EfTagRepository>();
 
             var app = builder.Build();
+
+            app.UseStaticFiles();
 
             SeedData.TestVerileriniDoldur(app);
 

@@ -43,6 +43,7 @@ namespace BlogApp.Data.Concreate.EfCore
                             Title = "Asp.net Core",
                             Content= "Asp.net Core dersleri",
                             IsActive=true,
+                            Image="post1.jpg",
                             publishedOn= DateTime.Now.AddDays(-10),
                             Tags= context.Tags.Take(3).ToList(),
                             UserId=1
@@ -52,6 +53,7 @@ namespace BlogApp.Data.Concreate.EfCore
                             Title = "Php Core",
                             Content = "Php Core dersleri",
                             IsActive = true,
+                            Image="post2.jpg",
                             publishedOn = DateTime.Now.AddDays(-20),
                             Tags = context.Tags.Take(3).ToList(),
                             UserId = 1
@@ -61,6 +63,7 @@ namespace BlogApp.Data.Concreate.EfCore
                             Title = "Django",
                             Content = "Django dersleri",
                             IsActive = true,
+                            Image="post3.jpg",
                             publishedOn = DateTime.Now.AddDays(-5),
                             Tags = context.Tags.Take(4).ToList(),
                             UserId = 2
