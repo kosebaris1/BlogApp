@@ -17,12 +17,17 @@ namespace BlogApp.Controllers
            
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index(string tag)
         {
+            var posts = _postRepository.Posts;
+            if (!string.IsNullOrEmpty(tag))
+            {
+                posts= posts.Where(x => x.Tags.Any(t => t.Url == tag));
+            }
             return View(
                 new PostsViewModel
                 {
-                    Posts= _postRepository.Posts.ToList(),
+                    Posts= await posts.ToListAsync(),
                
                 });
         }

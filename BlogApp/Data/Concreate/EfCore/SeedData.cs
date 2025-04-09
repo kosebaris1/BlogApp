@@ -95,7 +95,7 @@ namespace BlogApp.Data.Concreate.EfCore
                         },
                         new Post
                         {
-                            Title = "We Tasarım",
+                            Title = "Web Tasarım",
                             Content = "Web tasarım dersleri",
                             Url = "web-tasarım",
                             IsActive = true,
