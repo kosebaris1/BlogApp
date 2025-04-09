@@ -42,8 +42,15 @@ namespace BlogApp
             app.UseAuthorization();
 
             app.MapControllerRoute(
+                name: "post_details",
+                pattern: "posts/{url}",
+                defaults: new{controller="Posts",action="Details"}
+            );
+
+            app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Posts}/{action=Index}/{id?}");
+                pattern: "{controller=Posts}/{action=Index}/{id?}"
+            );
 
             app.Run();
         }
