@@ -19,6 +19,7 @@ namespace BlogApp
 
             builder.Services.AddScoped<IPostRepository, EfPostRepository>();
             builder.Services.AddScoped<ITagRepository, EfTagRepository>();
+            builder.Services.AddScoped<ICommentRepository, EfCommentRepository>();
 
             var app = builder.Build();
 
@@ -43,7 +44,7 @@ namespace BlogApp
 
             app.MapControllerRoute(
                 name: "post_details",
-                pattern: "posts/{url}",
+                pattern: "posts/details/{url}",
                 defaults: new{controller="Posts",action="Details"}
             );
 
