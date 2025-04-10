@@ -31,6 +31,7 @@
                 <h4 class="h5 mb-0">@Model.Comments.Count() adet yorum</h4>
             </div>
             <div class="card-body">
+                <div id="comments">
                 @foreach (var comment in Model.Comments)
                 {
                     <div class="d-flex mb-4">
@@ -48,12 +49,14 @@
                         </div>
                     </div>
                 }
+                </div>
                 <hr class="my-4">
                 <div>
                     <h4>Yorum Ekle</h4>
-                    <form action="/posts/AddComment" method="post">
-                        <input type="hidden" name="PostId" value="@Model.PostId">
-                        <input type="hidden" name="Url" value="@Model.Url">
+                    @* action="/posts/AddComment" method="post" *@
+                    <form >
+                        <input type="hidden" id="PostId" name="PostId" value="@Model.PostId">
+                  
                         <div class="col-md-12">
                             <label for="UserName" class="form-label">UserName</label>
                             <input type="text" name="UserName" id="UserName" class="form-control">
@@ -63,7 +66,7 @@
                             <textarea type="text" name="Text" id="Text" rows="3" class="form-control"></textarea>
                         </div>
                         <div class="col-md-12">
-                            <button type="submit" class="btn btn-primary">Kaydet</button>
+                            <button id="btnYorumKayit" type="button" class="btn btn-primary">Kaydet</button>
                         </div>
                     </form>
                 </div>
@@ -82,3 +85,49 @@
         </div>
     </div>
 </div>
+
+@section Scripts{
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#btnYorumKayit").click(function () {
+                
+                $.ajax({
+                    type:'POST',
+                    url: '@Url.Action("AddComment")',
+                    dataType: 'json',
+                    data:{
+                        PostId: $('#PostId').val(),
+                        UserName: $('#UserName').val(),
+                        Text: $('#Text').val(),
+                    },
+                    success: function(yorum){
+                        debugger;
+                        $("#comments").append(`
+                                <div class="d-flex mb-4">
+
+                                <img src="/img/${yorum.image}" alt="Kullanıcı"
+                                     class="rounded-circle me-3"
+                                     style="width: 48px; height: 48px; object-fit: cover;">
+
+
+                                <div>
+                                    <h6 class="mb-1">${yorum.userName} ${yorum.publishedOn}</h6>
+                                    <p class="mb-0 text-muted" style="font-size: 0.95rem;">
+                                      ${yorum.text}
+                                    </p>
+                                </div>
+                            </div>
+
+                        `);
+                        $("#UserName").val('');
+                        $("#Text").val('');
+
+                        
+                    }
+                });
+                return false;
+            });
+        });
+    </script>
+}
