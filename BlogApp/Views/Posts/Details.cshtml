@@ -1,28 +1,69 @@
 ﻿@model Post
 
 <div class="row">
+    <!-- Ana İçerik Alanı -->
     <div class="col-lg-8">
-      <div class="bg-white p-4">
-          <h1 class="h4 mb-4">@Model.Title</h1>
-          <div class="tags">
-                @foreach(var tag in Model.Tags)
+        <div class="card shadow-sm border-0 mb-4">
+            <div class="card-body">
+                <h1 class="card-title h3 mb-3">@Model.Title</h1>
+
+                <!-- Etiketler -->
+                <div class="mb-3">
+                    @foreach (var tag in Model.Tags)
+                    {
+                        <a href="/posts/tag/@tag.Url" class="badge bg-primary bg-opacity-10 text-primary fw-semibold me-1">@tag.Text</a>
+                    }
+                </div>
+
+                <!-- Görsel -->
+                @if (!string.IsNullOrEmpty(Model.Image))
                 {
-                    <a href="/posts/tag/@tag.Url" class="badge bg-primary bg-opacity-10 text-primary mb-2 fw-bold">@tag.Text</a>
+                    <img src="@Url.Content("~/img/" + Model.Image)" class="img-fluid rounded mb-4 w-100" alt="@Model.Title">
                 }
-               
-               
-          </div>
-            <img src="@Url.Content("~/img/" + @Model.Image)" class="img-fluid rounded-start" alt="@Model.Title">
-            <div>
-                @Model.Content
+
+                <!-- İçerik -->
+                <div class="post-content">
+                    @Html.Raw(Model.Content)
+                </div>
             </div>
-           
-      </div>
-    </div>
-    
-    <div class="col-lg-4">
-        <vc:tags-menu></vc:tags-menu>
-        <vc:new-posts></vc:new-posts>
+        </div>
+
+        <!-- Yorumlar -->
+        <div class="card shadow-sm border-0 mt-4">
+            <div class="card-header bg-white border-0">
+                <h4 class="h5 mb-0">@Model.Comments.Count() adet yorum</h4>
+            </div>
+            <div class="card-body">
+                @foreach (var comment in Model.Comments)
+                {
+                    <div class="d-flex mb-4">
+                        <!-- Kullanıcı Avatarı -->
+                        <img src="/img/@comment.User.Image" alt="Kullanıcı"
+                             class="rounded-circle me-3"
+                             style="width: 48px; height: 48px; object-fit: cover;">
+
+                        <!-- Yorum İçeriği -->
+                        <div>
+                            <h6 class="mb-1">@comment.User.UserName @comment.PublishedOn</h6>
+                            <p class="mb-0 text-muted" style="font-size: 0.95rem;">
+                                @comment.Text
+                            </p>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
     </div>
 
+    <!-- Sağ Sidebar Alanı -->
+    <div class="col-lg-4">
+        <div class="sticky-top" style="top: 80px;">
+            <div class="mb-4">
+                <vc:tags-menu></vc:tags-menu>
+            </div>
+            <div>
+                <vc:new-posts></vc:new-posts>
+            </div>
+        </div>
+    </div>
 </div>

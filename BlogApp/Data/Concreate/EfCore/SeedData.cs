@@ -18,11 +18,11 @@ namespace BlogApp.Data.Concreate.EfCore
                 if (!context.Tags.Any())
                 {
                     context.Tags.AddRange(
-                        new Tag { Text="Web programlama", Url="web-programlama"},
-                        new Tag { Text = "Backend", Url="backend" },
-                        new Tag { Text = "Frontend", Url="frontend" },
-                        new Tag { Text = "Fullstack",Url="fullstack" },
-                        new Tag { Text = "Php",Url="php" }
+                        new Tag { Text="Web programlama", Url="web-programlama", Colors=TagColors.warning},
+                        new Tag { Text = "Backend", Url="backend", Colors=TagColors.success},
+                        new Tag { Text = "Frontend", Url="frontend", Colors = TagColors.secondary },
+                        new Tag { Text = "Fullstack",Url="fullstack", Colors = TagColors.success },
+                        new Tag { Text = "Php",Url="php", Colors = TagColors.primary }
                     );
                     context.SaveChanges();
                 }
@@ -30,8 +30,8 @@ namespace BlogApp.Data.Concreate.EfCore
                 if (!context.Users.Any())
                 {
                     context.Users.AddRange(
-                        new User { UserName="BarisKose"},
-                        new User { UserName = "BurakKose" }
+                        new User { UserName="BarisKose",Image="p1.jpg"},
+                        new User { UserName = "BurakKose",Image="p2.jpg" }
                     );
                     context.SaveChanges();
                 }
@@ -46,8 +46,13 @@ namespace BlogApp.Data.Concreate.EfCore
                             IsActive=true,
                             Image="post1.jpg",
                             publishedOn= DateTime.Now.AddDays(-10),
-                            Tags= context.Tags.Take(3).ToList(),
-                            UserId=1
+                            Tags= context.Tags.Take(2).ToList(),
+                            UserId=1,
+                            Comments = new List<Comment>
+                            {
+                                new Comment {Text= "İyi bir kurs", PublishedOn=new DateTime(),UserId=1},
+                                new Comment {Text= "Çok faydalandığım bir kurs", PublishedOn=new DateTime(),UserId=2},
+                            }
                         },
                         new Post
                         {
@@ -57,7 +62,10 @@ namespace BlogApp.Data.Concreate.EfCore
                             IsActive = true,
                             Image="post2.jpg",
                             publishedOn = DateTime.Now.AddDays(-20),
-                            Tags = context.Tags.Take(3).ToList(),
+                            Tags = context
+                                  .Tags
+                                  .Where(x => x.Text == "php")
+                                  .ToList(),
                             UserId = 1
                         },
                         new Post
@@ -68,7 +76,7 @@ namespace BlogApp.Data.Concreate.EfCore
                             IsActive = true,
                             Image="post3.jpg",
                             publishedOn = DateTime.Now.AddDays(-5),
-                            Tags = context.Tags.Take(4).ToList(),
+                            Tags = context.Tags.Skip(3).Take(2).ToList(),
                             UserId = 2
                         },
                         new Post
@@ -79,7 +87,7 @@ namespace BlogApp.Data.Concreate.EfCore
                             IsActive = true,
                             Image = "post1.jpg",
                             publishedOn = DateTime.Now.AddDays(-28),
-                            Tags = context.Tags.Take(3).ToList(),
+                            Tags = context.Tags.Take(4).ToList(),
                             UserId = 1
                         },
                         new Post
@@ -101,7 +109,7 @@ namespace BlogApp.Data.Concreate.EfCore
                             IsActive = true,
                             Image = "post3.jpg",
                             publishedOn = DateTime.Now.AddDays(-32),
-                            Tags = context.Tags.Take(4).ToList(),
+                            Tags = context.Tags.Take(1).ToList(),
                             UserId = 2
                         }
 
