@@ -62,7 +62,7 @@ namespace BlogApp.Controllers
             {
                 entity.User.UserName,
                 entity.Text,
-                entity.PublishedOn,
+                publishedOn=entity.PublishedOn.ToString(),
                 entity.User.Image
             });
 

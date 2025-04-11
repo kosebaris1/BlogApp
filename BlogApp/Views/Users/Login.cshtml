@@ -1,0 +1,32 @@
+﻿@model LoginViewModel
+
+<div class="container d-flex justify-content-center align-items-start min-vh-100 pt-5" style="background-color: #f8f9fa;">
+    <div class="card shadow" style="width: 100%; max-width: 450px; background-color: white; box-shadow: 0 0 25px rgba(0, 0, 0, 0.5); border-radius: 15px;">
+        <div class="card-body p-5">
+            <h2 class="card-title text-center mb-4">Hoş Geldiniz</h2>
+            <form asp-action="Login" method="post" novalidate>
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <div class="mb-3">
+                    <label asp-for="Email" class="form-label">E-posta</label>
+                    <input asp-for="Email" class="form-control" placeholder="ornek@mail.com" />
+                    <span asp-validation-for="Email" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-4">
+                    <label asp-for="Password" class="form-label">Şifre</label>
+                    <input asp-for="Password" type="password" class="form-control" placeholder="Şifrenizi girin" />
+                    <span asp-validation-for="Password" class="text-danger small"></span>
+                </div>
+
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary btn-lg">Giriş Yap</button>
+                </div>
+
+                <div class="mt-4 text-center">
+                    <small class="text-muted">Hesabınız yok mu? <a href="/Account/Register">Kayıt olun</a></small>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
