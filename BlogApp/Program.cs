@@ -1,5 +1,6 @@
 using BlogApp.Data.AbstractBase;
 using BlogApp.Data.Concreate.EfCore;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using System;
 
@@ -20,10 +21,17 @@ namespace BlogApp
             builder.Services.AddScoped<IPostRepository, EfPostRepository>();
             builder.Services.AddScoped<ITagRepository, EfTagRepository>();
             builder.Services.AddScoped<ICommentRepository, EfCommentRepository>();
+            builder.Services.AddScoped<IUsersRepository, EfUsersRepository>();
+
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
 
             var app = builder.Build();
 
             app.UseStaticFiles();
+
+            app.UseRouting();
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             SeedData.TestVerileriniDoldur(app);
 
@@ -56,7 +64,7 @@ namespace BlogApp
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Posts}/{action=Index}/{id?}"
+                pattern: "{controller=Users}/{action=login}/{id?}"
             );
 
             app.Run();

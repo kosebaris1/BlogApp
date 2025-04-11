@@ -6,5 +6,7 @@ namespace BlogApp.Data.AbstractBase
     {
         IQueryable<User> Users { get; }
 
+        void CreateUser(User user);
+
     }
 }
