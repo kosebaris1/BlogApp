@@ -53,22 +53,22 @@
                 <hr class="my-4">
                 <div>
                     <h4>Yorum Ekle</h4>
-                    @* action="/posts/AddComment" method="post" *@
-                    <form >
-                        <input type="hidden" id="PostId" name="PostId" value="@Model.PostId">
-                  
-                        <div class="col-md-12">
-                            <label for="UserName" class="form-label">UserName</label>
-                            <input type="text" name="UserName" id="UserName" class="form-control">
-                        </div>
-                        <div class="col-md-12">
-                            <label for="Text" class="form-label">Yorum</label>
-                            <textarea type="text" name="Text" id="Text" rows="3" class="form-control"></textarea>
-                        </div>
-                        <div class="col-md-12">
-                            <button id="btnYorumKayit" type="button" class="btn btn-primary">Kaydet</button>
-                        </div>
-                    </form>
+
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        @* action="/posts/AddComment" method="post" *@
+                        <form >
+                            <input type="hidden" id="PostId" name="PostId" value="@Model.PostId">
+
+                            <div class="col-md-12">
+                                <label for="Text" class="form-label">Yorum</label>
+                                <textarea type="text" name="Text" id="Text" rows="3" class="form-control"></textarea>
+                            </div>
+                            <div class="col-md-12">
+                                <button id="btnYorumKayit" type="button" class="btn btn-primary">Kaydet</button>
+                            </div>
+                        </form>
+                    }
                 </div>
             </div>
         </div>
