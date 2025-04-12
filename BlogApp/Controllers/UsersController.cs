@@ -3,6 +3,7 @@ using BlogApp.Model;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
 namespace BlogApp.Controllers
@@ -28,6 +29,40 @@ namespace BlogApp.Controllers
                 return RedirectToAction("Index","Posts");
             }
             return View();
+        }
+
+        public IActionResult Register()
+        {
+            
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Register(RegisterViewModel model)
+        {
+            if (ModelState.IsValid) 
+            { 
+            var user= await _userRepository.Users.FirstOrDefaultAsync(x => x.UserName == model.UserName || x.Email== model.Email);
+                if (user == null)
+                {
+                    _userRepository.CreateUser(new Entity.User
+                    {
+                        UserName= model.UserName,
+                        Name=model.Name,
+                        Email=model.Email,
+                        Password=model.Password,
+                        Image="p2.jpg"
+                    });
+                    return RedirectToAction("Login");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "UserName ya da Email Kullanımda");
+                }
+           
+            }
+
+            return View(model);
         }
 
         public async Task<IActionResult> Logout()

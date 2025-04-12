@@ -1,0 +1,46 @@
+﻿@model RegisterViewModel
+
+<div class="container d-flex justify-content-center align-items-start min-vh-100 pt-5" style="background-color: #f8f9fa;">
+    <div class="card shadow" style="width: 100%; max-width: 450px; background-color: white; box-shadow: 0 0 25px rgba(0, 0, 0, 0.5); border-radius: 15px;">
+        <div class="card-body p-5">
+            <h2 class="card-title text-center mb-4">Hoş Geldiniz</h2>
+            <form asp-action="Register" method="post" novalidate>
+
+                <div class="mb-3">
+                    <label asp-for="UserName" class="form-label"></label>
+                    <input asp-for="UserName" class="form-control" placeholder="ornek@mail.com" />
+                    <span asp-validation-for="UserName" class="text-danger small"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Name" class="form-label"></label>
+                    <input asp-for="Name" class="form-control" placeholder="ornek@mail.com" />
+                    <span asp-validation-for="Name" class="text-danger small"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Email" class="form-label"></label>
+                    <input asp-for="Email" class="form-control" placeholder="ornek@mail.com" />
+                    <span asp-validation-for="Email" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-4">
+                    <label asp-for="Password" class="form-label"></label>
+                    <input asp-for="Password" type="password" class="form-control" placeholder="Şifrenizi girin" />
+                    <span asp-validation-for="Password" class="text-danger small"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="ConfirmPassword" class="form-label"></label>
+                    <input asp-for="ConfirmPassword" class="form-control" placeholder="Şifrenizi tekrar girin" />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger small"></span>
+                </div>
+
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary btn-lg">Kayıt Ol</button>
+                </div>
+
+                <div class="mt-4 text-center">
+                    <small class="text-muted">Zaten Hesabınız Var Mı? <a asp-action="login">Giriş Yap</a></small>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

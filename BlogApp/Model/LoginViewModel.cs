@@ -10,7 +10,7 @@ namespace BlogApp.Model
         public string? Email { get; set; }
 
         [Required]
-        [StringLength(10,ErrorMessage ="Max 10 karakter giriniz.",MinimumLength=6)]
+        [StringLength(10,ErrorMessage = "{0} alanı en az {2} karakter uzunluğunda olmalıdır.", MinimumLength=6)]
         [DataType(DataType.Password)]
         [Display(Name = "Parola")]
         public string? Password { get; set; }
