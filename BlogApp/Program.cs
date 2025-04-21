@@ -23,7 +23,10 @@ namespace BlogApp
             builder.Services.AddScoped<ICommentRepository, EfCommentRepository>();
             builder.Services.AddScoped<IUsersRepository, EfUsersRepository>();
 
-            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(optinos =>
+            {
+                optinos.LoginPath = "/Users/Login";
+            });
 
             var app = builder.Build();
 
