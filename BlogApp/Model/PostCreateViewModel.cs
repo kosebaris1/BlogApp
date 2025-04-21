@@ -4,6 +4,8 @@ namespace BlogApp.Model
 {
     public class PostCreateViewModel
     {
+        public int PostId { get; set; }
+
         [Required]
         [Display(Name="Başlık")]
         public string? Title { get; set; }
@@ -19,6 +21,8 @@ namespace BlogApp.Model
         [Required]
         [Display(Name = "url")]
         public string? Url { get; set; }
+
+        public bool IsActive { get; set; }
 
 
     }

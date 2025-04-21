@@ -8,6 +8,7 @@ namespace BlogApp.Data.AbstractBase
 
         void CreatePost(Post post);
 
+        void EditPost(Post post);
 
     }
 }
