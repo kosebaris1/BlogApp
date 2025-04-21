@@ -99,7 +99,7 @@ namespace BlogApp.Controllers
                         Url = model.Url,
                         UserId = int.Parse(userId ?? ""),
                         publishedOn= DateTime.Now,
-                        Image="post1",
+                        Image="post1.jpg",
                         IsActive=false
                     }
                     );

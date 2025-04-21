@@ -1,5 +1,56 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@model PostCreateViewModel
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-sm border-0 rounded-4">
+                <div class="card-body p-5">
+                    <h2 class="text-center mb-4">Yeni Post Oluştur</h2>
+                    <form asp-action="Create" method="post" novalidate>
+
+                        <div class="mb-4">
+                            <label asp-for="Title" class="form-label fw-semibold">Başlık</label>
+                            <input asp-for="Title" class="form-control form-control-lg" placeholder="Örn: Yeni blog yazım..." />
+                            <span asp-validation-for="Title" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-4">
+                            <label asp-for="Description" class="form-label fw-semibold">Açıklama</label>
+                            <textarea asp-for="Description" rows="3" class="form-control" placeholder="Kısa bir açıklama yazın..."></textarea>
+                            <span asp-validation-for="Description" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-4">
+                            <label asp-for="Url" class="form-label fw-semibold">URL</label>
+                            <input asp-for="Url" type="text" class="form-control" placeholder="örn: /blog/yeni-yazi" />
+                            <span asp-validation-for="Url" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-4">
+                            <label asp-for="Content" class="form-label fw-semibold">İçerik</label>
+                            <textarea id="Content" asp-for="Content" class="form-control" rows="10"></textarea>
+                            <span asp-validation-for="Content" class="text-danger small"></span>
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-success btn-lg">Post Oluştur</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.5.6/tinymce.min.js" integrity="sha512-MnRMTGT9lJZEFbsdGFtelL07n9ZHm9ARlfEgRGbMWnuEvbN72dl2VCcIW6nuT9MxZzdc3DSiVZv0EtERQzyoog==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        tinymce.init({
+            selector: '#Content',
+            height: 300,
+            menubar: false,
+           
+        });
+    </script>
 }
