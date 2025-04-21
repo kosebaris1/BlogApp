@@ -1,90 +1,103 @@
 ﻿@model Post
 
-<div class="row">
+<div class="row gy-4">
 
+    <!-- Post İçeriği -->
     <div class="col-lg-8">
-        <div class="card shadow-sm border-0 mb-4">
+        <!-- Post Card -->
+        <div class="card shadow-lg border-0 rounded-4 mb-4">
             <div class="card-body">
-                <h1 class="card-title h3 mb-3">@Model.Title</h1>
+                <h1 class="card-title h3 fw-bold mb-3">@Model.Title</h1>
 
-                <div class="mb-3">
+                <!-- Etiketler -->
+                <div class="mb-4">
                     @foreach (var tag in Model.Tags)
                     {
-                        <a href="/posts/tag/@tag.Url" class="badge bg-primary bg-opacity-10 text-primary fw-semibold me-1">@tag.Text</a>
+                        <a href="/posts/tag/@tag.Url" class="badge rounded-pill text-primary bg-primary bg-opacity-10 fw-semibold me-2 px-3 py-2">@tag.Text</a>
                     }
                 </div>
 
+                <!-- Görsel -->
                 @if (!string.IsNullOrEmpty(Model.Image))
                 {
-                    <img src="@Url.Content("~/img/" + Model.Image)" class="img-fluid rounded mb-4 w-100" alt="@Model.Title">
+                    <img src="@Url.Content("~/img/" + Model.Image)" class="img-fluid rounded-4 shadow-sm mb-4 w-100" alt="@Model.Title">
                 }
 
-                <div class="post-content">
+                <!-- İçerik -->
+                <div class="post-content fs-6 lh-lg text-dark">
                     @Html.Raw(Model.Content)
                 </div>
             </div>
         </div>
 
-      
-        <div class="card shadow-sm border-0 mt-4">
-            <div class="card-header bg-white border-0">
-                <h4 class="h5 mb-0">@Model.Comments.Count() adet yorum</h4>
+        <!-- Yorumlar -->
+        <div class="card shadow-lg border-0 rounded-4">
+            <div class="card-header bg-white border-0 py-3">
+                <h4 class="h5 fw-bold mb-0">@Model.Comments.Count() adet yorum</h4>
             </div>
             <div class="card-body">
                 <div id="comments">
-                @foreach (var comment in Model.Comments)
-                {
-                    <div class="d-flex mb-4">
-                   
-                        <img src="/img/@comment.User.Image" alt="Kullanıcı"
-                             class="rounded-circle me-3"
-                             style="width: 48px; height: 48px; object-fit: cover;">
-
-                   
-                        <div>
-                            <h6 class="mb-1">@comment.User.UserName @comment.PublishedOn</h6>
-                            <p class="mb-0 text-muted" style="font-size: 0.95rem;">
-                                @comment.Text
-                            </p>
+                    @foreach (var comment in Model.Comments)
+                    {
+                        <div class="d-flex mb-4">
+                            <img src="/img/@comment.User.Image" alt="Kullanıcı" class="rounded-circle shadow-sm me-3" style="width: 48px; height: 48px; object-fit: cover;">
+                            <div>
+                                <h6 class="mb-1 fw-semibold">@comment.User.UserName <small class="text-muted fw-normal">@comment.PublishedOn</small></h6>
+                                <p class="mb-0 text-muted" style="font-size: 0.95rem;">
+                                    @comment.Text
+                                </p>
+                            </div>
                         </div>
-                    </div>
-                }
+                    }
                 </div>
+
                 <hr class="my-4">
+
+                <!-- Yorum Ekle -->
                 <div>
-                    <h4>Yorum Ekle</h4>
+                    <h5 class="mb-3">💬 Yorum Ekle</h5>
 
                     @if (User.Identity.IsAuthenticated)
                     {
-                        @* action="/posts/AddComment" method="post" *@
-                        <form >
+                        <form>
                             <input type="hidden" id="PostId" name="PostId" value="@Model.PostId">
-
-                            <div class="col-md-12">
-                                <label for="Text" class="form-label">Yorum</label>
-                                <textarea type="text" name="Text" id="Text" rows="3" class="form-control"></textarea>
+                            <div class="mb-3">
+                                <label for="Text" class="form-label">Yorumunuz</label>
+                                <textarea name="Text" id="Text" rows="4" class="form-control rounded-3 shadow-sm" placeholder="Düşüncelerini yaz..."></textarea>
                             </div>
-                            <div class="col-md-12">
-                                <button id="btnYorumKayit" type="button" class="btn btn-primary">Kaydet</button>
+                            <div>
+                                <button id="btnYorumKayit" type="button" class="btn btn-primary px-4 rounded-pill shadow-sm">Gönder</button>
                             </div>
                         </form>
+                    }
+                    else
+                    {
+                        <div class="alert alert-warning mt-3 rounded-3 shadow-sm">
+                            Yorum yapabilmek için <a href="/login">giriş yapmalısınız</a>.
+                        </div>
                     }
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Sağ Menü -->
     <div class="col-lg-4">
         <div class="sticky-top" style="top: 80px;">
-            <div class="mb-4">
-                <vc:tags-menu></vc:tags-menu>
+            <div class="card shadow-sm border-0 rounded-4 mb-4">
+                <div class="card-body">
+                    <vc:tags-menu></vc:tags-menu>
+                </div>
             </div>
-            <div>
-                <vc:new-posts></vc:new-posts>
+            <div class="card shadow-sm border-0 rounded-4">
+                <div class="card-body">
+                    <vc:new-posts></vc:new-posts>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
 
 @section Scripts{
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
