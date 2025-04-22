@@ -1,20 +1,41 @@
 ﻿@model List<Post>
 
-<div class="card">
-    <div class="card-header">
-        <h5 class="card-title">New Posts</h5>
+<div class="card shadow-sm border-0 rounded-4">
+    <div class="card-header bg-light border-bottom-0 rounded-top-4">
+        <h5 class="card-title text-dark fw-semibold mb-0">
+            <i class="bi bi-stars me-2 text-warning"></i> Yeni Gönderiler
+        </h5>
     </div>
     <div class="card-body">
-        @foreach(var post in Model)
+        @if (Model.Any())
         {
-          <div class="mb-3">
-
-              <h6 class="mb-0">
-                    <a href="/posts/details/@post.Url">@post.Title</a>
-              </h6>
-          </div>
-              
+            <ul class="list-unstyled mb-0">
+                @foreach (var post in Model)
+                {
+                    <li class="mb-3 border-bottom pb-2">
+                        <a href="/posts/details/@post.Url" class="text-decoration-none post-link">
+                            <i class="bi bi-chevron-right me-1 text-primary"></i>@post.Title
+                        </a>
+                    </li>
+                }
+            </ul>
         }
-
+        else
+        {
+            <p class="text-muted mb-0">Henüz gönderi eklenmemiş.</p>
+        }
     </div>
 </div>
+
+<style>
+    .post-link {
+        color: #212529;
+        font-weight: 500;
+        transition: color 0.3s ease;
+    }
+
+    .post-link:hover {
+        color: #0d6efd;
+        text-decoration: underline;
+    }
+</style>

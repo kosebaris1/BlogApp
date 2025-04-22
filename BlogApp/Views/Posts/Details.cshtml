@@ -2,14 +2,14 @@
 
 <div class="row gy-4">
 
-    <!-- Post İçeriği -->
+   
     <div class="col-lg-8">
-        <!-- Post Card -->
+    
         <div class="card shadow-lg border-0 rounded-4 mb-4">
             <div class="card-body">
                 <h1 class="card-title h3 fw-bold mb-3">@Model.Title</h1>
 
-                <!-- Etiketler -->
+
                 <div class="mb-4">
                     @foreach (var tag in Model.Tags)
                     {
@@ -17,20 +17,24 @@
                     }
                 </div>
 
-                <!-- Görsel -->
+           
                 @if (!string.IsNullOrEmpty(Model.Image))
                 {
                     <img src="@Url.Content("~/img/" + Model.Image)" class="img-fluid rounded-4 shadow-sm mb-4 w-100" alt="@Model.Title">
                 }
 
-                <!-- İçerik -->
+                <ul>
+                    <li class="list-inline-item" ><i class="bi bi-calendar"></i>@Model.publishedOn.ToString("d")</li>
+                    <li class="list-inline-item"><i class="bi bi-person-circle"></i> <a href="/profile/@Model.User.UserName">@Model.User.UserName</a></li>
+                </ul>
+               
                 <div class="post-content fs-6 lh-lg text-dark">
                     @Html.Raw(Model.Content)
                 </div>
             </div>
         </div>
 
-        <!-- Yorumlar -->
+       
         <div class="card shadow-lg border-0 rounded-4">
             <div class="card-header bg-white border-0 py-3">
                 <h4 class="h5 fw-bold mb-0">@Model.Comments.Count() adet yorum</h4>
@@ -42,7 +46,7 @@
                         <div class="d-flex mb-4">
                             <img src="/img/@comment.User.Image" alt="Kullanıcı" class="rounded-circle shadow-sm me-3" style="width: 48px; height: 48px; object-fit: cover;">
                             <div>
-                                <h6 class="mb-1 fw-semibold">@comment.User.UserName <small class="text-muted fw-normal">@comment.PublishedOn</small></h6>
+                                <h6 class="mb-1 fw-semibold"> <a href="/profile/@comment.User.UserName">@comment.User.Name  </a><small class="text-muted fw-normal"> @comment.PublishedOn</small></h6>
                                 <p class="mb-0 text-muted" style="font-size: 0.95rem;">
                                     @comment.Text
                                 </p>
@@ -53,7 +57,7 @@
 
                 <hr class="my-4">
 
-                <!-- Yorum Ekle -->
+              
                 <div>
                     <h5 class="mb-3">💬 Yorum Ekle</h5>
 
@@ -81,7 +85,7 @@
         </div>
     </div>
 
-    <!-- Sağ Menü -->
+  
     <div class="col-lg-4">
         <div class="sticky-top" style="top: 80px;">
             <div class="card shadow-sm border-0 rounded-4 mb-4">

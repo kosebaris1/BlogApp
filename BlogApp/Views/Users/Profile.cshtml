@@ -1,0 +1,77 @@
+﻿@model User
+@{
+    ViewData["Title"] = $"{Model.Name} | Profil";
+}
+
+<div class="container mt-5">
+    <div class="row g-4">
+        <!-- Profil Sol Panel -->
+        <div class="col-lg-4">
+            <div class="card shadow-sm border-0 rounded-4">
+                <div class="card-body text-center">
+                    <img src="~/img/@Model.Image" class="rounded-circle mb-3 img-fluid" style="width: 150px; height: 150px; object-fit: cover;" alt="Profil Resmi" />
+                    <h4 class="card-title">@Model.Name</h4>
+                    <p class="text-muted">@Model.UserName</p>
+                    <hr />
+                
+                    <p><i class="bi bi-pencil"></i> Gönderi: @Model.Posts.Count</p>
+                    <p><i class="bi bi-chat-dots"></i> Yorum: @Model.Comments.Count</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Profil Sağ Panel -->
+        <div class="col-lg-8">
+            <!-- Gönderiler -->
+            <div class="card mb-4 shadow-sm border-0 rounded-4">
+                <div class="card-header bg-primary text-white rounded-top-4">
+                    <h5 class="mb-0"><i class="bi bi-megaphone-fill"></i> Yayınlanan Gönderiler</h5>
+                </div>
+                <ul class="list-group list-group-flush">
+                    @if (Model.Posts.Any())
+                    {
+                        @foreach (var post in Model.Posts)
+                        {
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <div>
+                                    <i class="bi bi-caret-right-fill text-primary me-2"></i>
+                                    <a href="/posts/details/@post.Url" class="text-decoration-none">@post.Title</a>
+                                </div>
+                                <span class="badge bg-light text-muted">@post.publishedOn.ToShortDateString()</span>
+                            </li>
+                        }
+                    }
+                    else
+                    {
+                        <li class="list-group-item text-muted">Henüz gönderi yok.</li>
+                    }
+                </ul>
+            </div>
+
+            <!-- Yorumlar -->
+            <div class="card shadow-sm border-0 rounded-4">
+                <div class="card-header bg-secondary text-white rounded-top-4">
+                    <h5 class="mb-0"><i class="bi bi-chat-dots-fill"></i> Yorumlar</h5>
+                </div>
+                <ul class="list-group list-group-flush">
+                    @if (Model.Comments.Any())
+                    {
+                        @foreach (var comment in Model.Comments)
+                        {
+                            <li class="list-group-item">
+                                <div>
+                                    <p class="mb-1"><i class="bi bi-chat-right-text-fill text-success me-2"></i>@comment.Text</p>
+                                    <small class="text-muted">Gönderi: <a href="/posts/details/@comment.Post.Url" class="text-decoration-underline">@comment.Post.Title</a></small>
+                                </div>
+                            </li>
+                        }
+                    }
+                    else
+                    {
+                        <li class="list-group-item text-muted">Henüz yorum yapılmamış.</li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
