@@ -10,5 +10,6 @@ namespace BlogApp.Data.AbstractBase
 
         void EditPost(Post post);
 
+        void EditPost(Post post, int[] tagIds);
     }
 }

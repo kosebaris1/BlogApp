@@ -97,24 +97,42 @@ namespace BlogApp.Controllers
             if (ModelState.IsValid)
             {
                 var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                _postRepository.CreatePost(
-                    new Post
+
+                string imageName = "default.jpg"; 
+
+               
+                if (model.ImageFile != null && model.ImageFile.Length > 0)
+                {
+                    var extension = Path.GetExtension(model.ImageFile.FileName);
+                    var fileName = Guid.NewGuid().ToString() + extension;
+                    var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img", fileName);
+
+                    using (var stream = new FileStream(path, FileMode.Create))
                     {
-                        Title = model.Title,
-                        Content = model.Content,
-                        Description=model.Description,
-                        Url = model.Url,
-                        UserId = int.Parse(userId ?? ""),
-                        publishedOn= DateTime.Now,
-                        Image="post1.jpg",
-                        IsActive=false
+                        model.ImageFile.CopyTo(stream);
                     }
-                    );
+
+                    imageName = fileName;
+                }
+
+                _postRepository.CreatePost(new Post
+                {
+                    Title = model.Title,
+                    Content = model.Content,
+                    Description = model.Description,
+                    Url = model.Url,
+                    UserId = int.Parse(userId ?? "0"),
+                    publishedOn = DateTime.Now,
+                    Image = imageName, // 👈 burada resmi veriyoruz
+                    IsActive = false
+                });
+
                 return RedirectToAction("Index");
             }
 
             return View(model);
         }
+
 
         [Authorize]
         public async Task<IActionResult> List()
@@ -160,7 +178,7 @@ namespace BlogApp.Controllers
 
         [Authorize]
         [HttpPost]
-        public IActionResult Edit(PostCreateViewModel model)
+        public IActionResult Edit(PostCreateViewModel model, int[] tagIds)
         {
             if (ModelState.IsValid)
             {
@@ -178,11 +196,13 @@ namespace BlogApp.Controllers
                 {
                     entityToUpdate.IsActive = model.IsActive; 
                 }
-                _postRepository.EditPost(entityToUpdate);
+                _postRepository.EditPost(entityToUpdate,tagIds);
                 return RedirectToAction("List");
             }
-           
-                return View(model);
+
+            ViewBag.Tags = _tagRepository.Tags.ToList();
+
+            return View(model);
         }
 
     }

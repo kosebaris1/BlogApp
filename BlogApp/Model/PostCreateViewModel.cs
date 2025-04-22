@@ -1,5 +1,6 @@
 ﻿using BlogApp.Entity;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http;
 
 namespace BlogApp.Model
 {
@@ -24,6 +25,8 @@ namespace BlogApp.Model
         public string? Url { get; set; }
 
         public bool IsActive { get; set; }
+
+        public IFormFile? ImageFile { get; set; }
 
         public List<Tag> Tags { get; set; } = new();
 

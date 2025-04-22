@@ -1,4 +1,4 @@
-﻿@model PostCreateViewModel
+﻿@model BlogApp.Model.PostCreateViewModel
 
 <div class="container py-5">
     <div class="row justify-content-center">
@@ -6,7 +6,7 @@
             <div class="card shadow-sm border-0 rounded-4">
                 <div class="card-body p-5">
                     <h2 class="text-center mb-4">Yeni Post Oluştur</h2>
-                    <form asp-action="Create" method="post" novalidate>
+                    <form asp-action="Create" method="post" enctype="multipart/form-data" novalidate>
 
                         <div class="mb-4">
                             <label asp-for="Title" class="form-label fw-semibold">Başlık</label>
@@ -32,6 +32,12 @@
                             <span asp-validation-for="Content" class="text-danger small"></span>
                         </div>
 
+                        <div class="mb-4">
+                            <label asp-for="ImageFile" class="form-label fw-semibold">Görsel Yükle</label>
+                            <input asp-for="ImageFile" type="file" class="form-control" />
+                            <span asp-validation-for="ImageFile" class="text-danger small"></span>
+                        </div>
+
                         <div class="d-grid">
                             <button type="submit" class="btn btn-success btn-lg">Post Oluştur</button>
                         </div>
@@ -49,8 +55,7 @@
         tinymce.init({
             selector: '#Content',
             height: 300,
-            menubar: false,
-           
+            menubar: false
         });
     </script>
 }
